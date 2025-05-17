@@ -9,6 +9,7 @@ public class move : MonoBehaviour
     public float horizontalInput;
     public float verticalInput;
     public GameObject miObjeto;
+    public GameObject miOtroObjeto;
     public bool cambiaObjeto = false;
     void Start()
     {
@@ -25,13 +26,6 @@ public class move : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
 
-        //horizontalInput = Input.GetAxis("Mouse X");
-        //transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
-
-        //horizontalInput = Input.GetAxis("Mouse Y");
-        //transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);  -5.14 0.03
-
-        //Limites del escenario vertical
         if (transform.position.z < -15.86f)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -15.86f);
@@ -51,13 +45,25 @@ public class move : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
-        {   
-            //miObjeto.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.7f);
-            //Instantiate(miObjeto);
-            Instantiate(miObjeto,transform.position,Quaternion.identity);
+        {
+            /* Instantiate(miObjeto, transform.position, Quaternion.identity); */
+            cambiarObjeto();
         }
 
 
     }
+    private void cambiarObjeto()
+    {
+        if (cambiaObjeto == true)
+        {
+            Instantiate(miOtroObjeto, transform.position, Quaternion.identity);
+        } else
+        {
+            Instantiate(miObjeto, transform.position, Quaternion.identity);
+        }
+
+    }
 }
+
+
 
