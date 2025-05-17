@@ -14,7 +14,7 @@ public class PowerUp : MonoBehaviour
             switch (tipoPower)
             {
                 case TipoPowerUp.Velocidad:
-                    StartCoroutine(AumentarVelocidadTemporal(jugador));
+                    jugador.speed = 10f;
                     break;
                 case TipoPowerUp.DobleDisparo:
                     jugador.dobleDisparoActivo = true;
@@ -28,10 +28,4 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    private IEnumerator AumentarVelocidadTemporal(move jugador)
-    {
-        jugador.speed = 10f;
-        yield return new WaitForSeconds(1f);
-        jugador.speed = 5f;
-    }
 }
