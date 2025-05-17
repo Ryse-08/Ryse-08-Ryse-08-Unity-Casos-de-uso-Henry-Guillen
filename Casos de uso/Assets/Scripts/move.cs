@@ -4,66 +4,53 @@ using UnityEngine;
 
 public class move : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 5.0f;
-    public float horizontalInput;
-    public float verticalInput;
+    public float speed = 5.0f;
     public GameObject miObjeto;
     public GameObject miOtroObjeto;
     public bool cambiaObjeto = false;
+    public bool dobleDisparoActivo = false;
+
+    public AudioClip disparoClip;
+    private AudioSource audioSource;
+
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        //transform.Translate(Vector3.right * Time.deltaTime * speed);
-
-        horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
-
-        verticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
-
-        if (transform.position.z < -15.86f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -15.86f);
-        }
-        if (transform.position.z > -7.05f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -7.05f);
-        }
-        if (transform.position.x > -0.05f)
-        {
-            transform.position = new Vector3(-0.05f, transform.position.y, transform.position.z);
-        }
-        if (transform.position.x < -5.05f)
-        {
-            transform.position = new Vector3(-5.05f, transform.position.y, transform.position.z);
-        }
-
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            /* Instantiate(miObjeto, transform.position, Quaternion.identity); */
-            cambiarObjeto();
+            Disparar();
         }
-
-
     }
-    private void cambiarObjeto()
+
+    void Disparar()
     {
-        if (cambiaObjeto == true)
+        if (dobleDisparoActivo)
         {
-            Instantiate(miOtroObjeto, transform.position, Quaternion.identity);
-        } else
+            Instantiate(miObjeto, transform.position + Vector3.left * 0.2f, Quaternion.identity);
+            Instantiate(miObjeto, transform.position + Vector3.right * 0.2f, Quaternion.identity);
+        }
+        else
         {
             Instantiate(miObjeto, transform.position, Quaternion.identity);
         }
 
+        if (audioSource != null && disparoClip != null)
+        {
+            audioSource.PlayOneShot(disparoClip);
+        }
     }
 }
+
+
 
 
 
