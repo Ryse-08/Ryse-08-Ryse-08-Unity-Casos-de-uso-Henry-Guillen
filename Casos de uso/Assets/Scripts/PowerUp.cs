@@ -4,7 +4,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     public TipoPowerUp tipoPower;
-    public Color nuevoColor = Color.green;
+    public Material nuevoMaterial;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +20,11 @@ public class PowerUp : MonoBehaviour
                     jugador.dobleDisparoActivo = true;
                     break;
                 case TipoPowerUp.CambioColor:
-                    jugador.GetComponent<Renderer>().material.color = nuevoColor;
+                    Renderer rend = jugador.GetComponent<Renderer>();
+                    if (rend != null && nuevoMaterial != null)
+                    {
+                        rend.material = nuevoMaterial;
+                    }
                     break;
             }
 

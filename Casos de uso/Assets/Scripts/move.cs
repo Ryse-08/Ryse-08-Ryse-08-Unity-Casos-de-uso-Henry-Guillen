@@ -29,6 +29,28 @@ public class move : MonoBehaviour
         {
             Disparar();
         }
+
+        // Límite en eje X (ancho de la plataforma)
+        if (transform.position.x > 6f)
+        {
+            transform.position = new Vector3(6f, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x < -6f)
+        {
+            transform.position = new Vector3(-6f, transform.position.y, transform.position.z);
+        }
+
+        // Límite en eje Z (profundidad de la plataforma)
+        if (transform.position.z > 1f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+        }
+        if (transform.position.z < -13f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -13f);
+        }
+
+
     }
 
     void Disparar()
